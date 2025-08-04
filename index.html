@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🧠 Troll GetKey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: black;
+      overflow: hidden;
+      font-family: monospace;
+      color: lime;
+      text-align: center;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    #content {
+      position: relative;
+      z-index: 1;
+      margin-top: 80px;
+    }
+
+    #logo {
+      width: 100px;
+      border-radius: 50%;
+    }
+
+    .key-box {
+      margin-top: 30px;
+      background: rgba(0, 255, 0, 0.1);
+      padding: 20px;
+      border: 1px solid lime;
+      border-radius: 10px;
+      display: inline-block;
+      font-size: 18px;
+    }
+
+    #block-message {
+      display: none;
+      color: red;
+      font-size: 20px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+  <div id="content">
+    <img id="logo" src="TrollScripter.png" alt="logo">
+    <h1>🔐 Welcome to TrollScripter GetKey</h1>
+    <div class="key-box">
+      Your Key:<br><strong>TrollKey_wRxFZ5ryW4E0t67bLD37IWgjl5yTwC</strong>
+    </div>
+  </div>
+  <div id="block-message">🚫 Access Denied. Please copy the link and open it again.</div>
+
+  <script>
+    // Matrix Animation
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+
+    const drops = Array.from({ length: columns }, () => 1);
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#0F0";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 35);
+
+    // Anti Direct Access
+    let accessedFromCopy = false;
+    try {
+      navigator.clipboard.readText().then(text => {
+        if (text.includes(window.location.hostname)) {
+          accessedFromCopy = true;
+          document.getElementById("content").style.display = "block";
+        } else {
+          document.getElementById("content").style.display = "none";
+          document.getElementById("block-message").style.display = "block";
+        }
+      }).catch(() => {
+        document.getElementById("content").style.display = "none";
+        document.getElementById("block-message").style.display = "block";
+      });
+    } catch {
+      document.getElementById("content").style.display = "none";
+      document.getElementById("block-message").style.display = "block";
+    }
+  </script>
+</body>
+</html>
