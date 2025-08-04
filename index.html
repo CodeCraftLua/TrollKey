@@ -39,12 +39,6 @@
       display: inline-block;
       font-size: 18px;
     }
-    #block-message {
-      display: none;
-      color: red;
-      font-size: 20px;
-      margin-top: 50px;
-    }
   </style>
 </head>
 <body>
@@ -56,7 +50,6 @@
       Your Key:<br><strong>TrollKey_wRxFZ5ryW4E0t67bLD37IWgjl5yTwC</strong>
     </div>
   </div>
-  <div id="block-message">🚫 Access Denied. Please copy the link and open it again.</div>
   <script>
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
@@ -79,24 +72,6 @@
       }
     }
     setInterval(draw, 35);
-    let accessedFromCopy = false;
-    try {
-      navigator.clipboard.readText().then(text => {
-        if (text.includes(window.location.hostname)) {
-          accessedFromCopy = true;
-          document.getElementById("content").style.display = "block";
-        } else {
-          document.getElementById("content").style.display = "none";
-          document.getElementById("block-message").style.display = "block";
-        }
-      }).catch(() => {
-        document.getElementById("content").style.display = "none";
-        document.getElementById("block-message").style.display = "block";
-      });
-    } catch {
-      document.getElementById("content").style.display = "none";
-      document.getElementById("block-message").style.display = "block";
-    }
   </script>
 </body>
 </html>
